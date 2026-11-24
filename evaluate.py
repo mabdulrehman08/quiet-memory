@@ -62,7 +62,7 @@ def split_conversations(rows):
 
 def conversation_data(row):
     memories = {
-        turn["dia_id"]: turn["text"]
+        turn["dia_id"]: f'{turn["speaker"]}: {turn["text"]}'
         for name, session in row["conversation"].items()
         if name.startswith("session_") and isinstance(session, list)
         for turn in session

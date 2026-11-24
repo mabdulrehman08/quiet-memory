@@ -6,10 +6,12 @@ A local benchmark for deciding whether to surface one retrieved memory. This is 
 
 | Gate | Threshold | Evidence recall@1 (95% CI) | False interruptions per 100 no-memory turns (95% CI) |
 | --- | ---: | ---: | ---: |
-| Top cosine | 0.550 | 5.44% [2.96, 8.17] (30/551) | 6.67 [0.67, 16.00] (10/150) |
-| Top-1 minus top-2 cosine | 0.097 | 2.36% [0.87, 3.93] (13/551) | 6.67 [0.67, 15.33] (10/150) |
+| Top cosine | 0.455 | 17.42% [14.66, 20.42] (96/551) | 12.00 [2.67, 24.67] (18/150) |
+| Top-1 minus top-2 cosine | 0.060 | 9.07% [7.36, 11.14] (50/551) | 10.00 [3.33, 18.00] (15/150) |
 
-Margin lost 3.09 percentage points of recall (paired 95% CI for margin minus cosine: [-4.60, -1.82]). Both gates interrupted 10 times, with no observed reduction for margin (paired difference per 100: 0.00 [-10.00, 11.33]). Ungated retrieval found the exact evidence turn for 58/551 queries (10.53%).
+Margin lost 8.35 percentage points of recall (paired 95% CI for margin minus cosine: [-10.02, -6.53]). The difference in false interruptions was small and uncertain (-2.00 per 100, [-14.00, 8.67]). Cosine went over the calibration budget of 10 on held-out data. Ungated retrieval found the exact evidence turn for 96/551 queries (17.42%), so retrieval limits both gates, and the cosine gate kept every correct hit.
+
+Memories are embedded as `speaker: text`. A first version left out the speaker name and scored 10.53% ungated, 5.44% with cosine and 2.36% with margin. The ordering of the gates was the same.
 
 ![Held-out evidence recall and false interruptions with 95% bootstrap intervals](results.png)
 

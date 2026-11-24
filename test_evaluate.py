@@ -17,7 +17,7 @@ class EvaluationTest(unittest.TestCase):
     def test_only_resolved_single_evidence_is_positive(self):
         row = {
             "conversation": {
-                "session_1": [{"dia_id": "a", "text": "First"}, {"dia_id": "b", "text": "Second"}],
+                "session_1": [{"dia_id": "a", "speaker": "Ann", "text": "First"}, {"dia_id": "b", "speaker": "Ann", "text": "Second"}],
                 "session_1_date_time": "Monday",
             },
             "qa": [
@@ -28,7 +28,7 @@ class EvaluationTest(unittest.TestCase):
                 {"category": 5, "question": "Adversarial?", "evidence": ["a"]},
             ],
         }
-        self.assertEqual(conversation_data(row), ({"a": "First", "b": "Second"}, [("Valid?", "a")]))
+        self.assertEqual(conversation_data(row), ({"a": "Ann: First", "b": "Ann: Second"}, [("Valid?", "a")]))
 
     def test_rank_uses_same_winner_for_both_scores(self):
         winners, scores = rank(np.array([[.3, .7, .4], [.8, .8, .6]]))
